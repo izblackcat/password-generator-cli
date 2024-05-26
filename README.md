@@ -6,8 +6,8 @@ For curiousity I wanted to start with Spring Shell by creating a simple side-pro
 
 
 ## Features : 
-- [ ] generate random password with a custom lengths
-- [ ] choose characters to be included or excluded
+- [x] generate random password with a custom lengths
+- [x] choose characters to be included or excluded
 - [ ] choose complexity requirements: number of uppercase, numbers, special characters...
 - [ ] generate multiple passwords
 - [ ] history of generated passwords
