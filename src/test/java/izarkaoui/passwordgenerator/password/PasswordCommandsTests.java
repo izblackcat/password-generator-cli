@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = PasswordCommands.class)
@@ -45,6 +47,16 @@ public class PasswordCommandsTests {
         assertNotNull(generatedPassword);
         assertEquals(generatedPassword.length(), customLength);
         PasswordAssertions.assertContainsCharacters(generatedPassword, charsToInclude);
+    }
+
+    @Test
+    public void whenGenerateMultiplePasswordsGivenNumberOfPasswords() {
+        int number = 5;
+
+        List<String> generatedPasswords = this.passwordCommands.generateMultiplePasswords(number);
+
+        assertNotNull(generatedPasswords);
+        assertEquals(number, generatedPasswords.size(), "Should generate the number specified of passwords");
     }
 
 }

@@ -6,6 +6,8 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 @ShellComponent
 public class PasswordCommands {
@@ -29,7 +31,8 @@ public class PasswordCommands {
         StringBuilder generated = new StringBuilder();
         for(int i=0; i<length; i++) {
             // 33 and 126: from ascii table
-//            int random = (int) (Math.random() * 94 + 32);
+            // int random = (int) (Math.random() * 94 + 32);
+
             int random = secureRandom.nextInt(94) + 32;
             char c = (char) random;
             generated.append(c);
@@ -61,5 +64,48 @@ public class PasswordCommands {
             }
             return generatedPassword.toString();
         }
+    }
+
+
+    /**
+     * This method is a shell command that generates multiple random passwords.
+     * @param numberOfPasswords the number of passwords to be generated
+     * @return a list of random generated passwords
+     */
+    @ShellMethod(key = "generate-multiple", value = "This command generates multiple passwords")
+    public List<String> generateMultiplePasswords(int numberOfPasswords) {
+
+        List<String> passwords = new ArrayList<>();
+
+        for(int i=0; i<numberOfPasswords; i++) {
+            int length = secureRandom.nextInt(8, 20);
+            String password = generate(length);
+            passwords.add(password);
+        }
+
+        return passwords;
+    }
+
+
+//    @ShellMethod(key = "generate-custom", value = "This command generates a password with custom number of uppercase, lowercase, numbers and custom chars")
+    public String generateWithCustomComplexity(
+            @ShellOption(defaultValue = "8", help = "Number of lowercase characters") int lowercase,
+            @ShellOption(defaultValue = "8", help = "Number of uppercase characters") int uppercase,
+            @ShellOption(defaultValue = "8", help = "Number of digits") int numbers,
+            @ShellOption(defaultValue = "#@?", help = "A string of special characters") String specialChars) {
+
+        if(lowercase < 0 || uppercase < 0 || numbers < 0) {
+            throw new IllegalArgumentException("Illegal arguments. Check again!");
+        }
+
+
+        StringBuilder password = new StringBuilder();
+
+        // a-b:97-122
+        // A-Z:65-90
+
+
+
+        return password.toString();
     }
 }
